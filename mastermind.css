@@ -11,6 +11,7 @@ body{
 	position: relative;
 	font-size: 18px;
 	font-weight: bold;
+	margin-right: 5px;
 }
 
 .selector{
@@ -22,7 +23,7 @@ body{
 	font-size: 14px;
 	text-shadow: 0 1px white;
 	background: rgba(0, 0, 0, 0);
-	margin-right: 15px;
+	margin-right: 30px;
 }
 
 .title{
@@ -37,24 +38,23 @@ body{
 
 .options{
 	background: linear-gradient(to bottom, #F4FAFA, #CDD7D7 100%);
-	width: 200px;
-	height: 406px;
+	width: 218px;
+	height: 464px;
 	padding-top: 30px;
 	border-radius: 6px;
 	display: inline-block;
-	border: black solid 1px;
 	vertical-align: top;
 }
 
 .options button{
 	border: 0px;
-	width: 140px;
-	height: 48px;
+	width: 175px;
+	height: 53px;
 	background: linear-gradient(to bottom, #92AD5C, #BACF8E 100%);
 	border-radius: 6px;
 	font-weight: bold;
 	color: black;
-	font-size: 24px;
+	font-size: 20px;
 	box-shadow: rgb(0, 0, 0) 0px 0px 9px;
 	display: block;
 	margin-left: auto;
@@ -71,15 +71,19 @@ body{
 	padding-right: 22px;
 	padding-left: 27px;
 	padding-top: 30px;
-	height: 406px;
+	height: 464px;
 	background: linear-gradient(to bottom, #F4FAFA, #CDD7D7 100%);
 	border-radius: 6px;
-	border: black solid 1px;
 }
 
 .row{
 	height: 27px;
-	margin-top: 6px;
+	margin-top: 12px;
+	-webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 .row-number{
@@ -92,15 +96,16 @@ body{
 	line-height: 27px;
 	vertical-align: top;
 	margin-right: 6px;
+	margin-top: 3px;
 }
 
 .code-peg-group{
 	display: inline-block;
 	padding: 2px;
-	margin-right: 6px;
+	margin-right: 10px;
 }
 
-.code-peg-group.selected{
+.code-peg-group.active{
 	border: solid red 1px;	
 }
 
@@ -110,7 +115,7 @@ body{
 	height: 25px;
 	border: solid #660066 1px;
 	border-radius: 22px;
-	margin-left: 3px;
+	margin: 2px;
 	background: #D75252;
 }
 
@@ -131,6 +136,7 @@ body{
 	vertical-align: middle;
 	display: inline-block;
 	height: 27px;
+	margin-bottom: 6px;
 }
 
 .key-peg{
@@ -172,39 +178,57 @@ body{
    background: #1b435e;
 }
 
-.check-button.selected{
+.check-button.active{
 	visibility: visible;
 }
 
 .color0{
 	background: radial-gradient(circle 23px at 12px 5px, #FF0000, #000);
+	width: 27px;
+	height: 27px;
+	margin: 1px;
 }
 
 .color1{
 	background: radial-gradient(circle 23px at 12px 5px, #00FF00, #000);
+	width: 27px;
+	height: 27px;
+	margin: 1px;
 }
 
 .color2{
-	background: radial-gradient(circle 23px at 12px 5px, #0000FF, #000);
+	background: radial-gradient(circle 23px at 12px 5px, #0064FF, #000);
+	width: 27px;
+	height: 27px;
+	margin: 1px;
 }
 
 .color3{
 	background: radial-gradient(circle 23px at 12px 5px, #FFFF00, #000);
+	width: 27px;
+	height: 27px;
+	margin: 1px;
 }
 
 .color4{
 	background: radial-gradient(circle 23px at 12px 5px, #FF00FF, #000);
+	width: 27px;
+	height: 27px;
+	margin: 1px;
 }
 
 .color5{
 	background: radial-gradient(circle 23px at 12px 5px, #1AEEDD, #000);
+	width: 27px;
+	height: 27px;
+	margin: 1px;
 }
 
 .black{
 	width: 12px;
 	height: 12px;
 	margin: 1px;
-	background-color:black;
+	background: radial-gradient(circle 6px at 5px 3px, #3F4443, black);
 }
 
 .white{
@@ -216,10 +240,9 @@ body{
 
 .dialog{
 	display: none;
-	top: 50%;
-	left: 50%;
+	top: 40%;
+	left: 23%;
 	padding: 15px;
-	transform: translate(-50%, -50%);
 	background-color: #FFE9E9;
 	position: absolute;
 	border-radius: 6px;
@@ -229,7 +252,16 @@ body{
 	font-size: 25px;
 	font-weight: bold;
 	padding: 27px;
+	border: 2px solid black;
 }
+
+.how-to-play{
+	top: 10%;
+	font-size: 19px;
+	width: 440px;
+	text-align: left;
+}
+
 
 .dialog button{
 	border: 0px;
@@ -249,8 +281,14 @@ body{
 	margin-bottom: 20px;
 }
 
-.dialog button:hover {
-	background-image: linear-gradient(to bottom, #BACF8E, #92AD5C 100%);
+.dialogCover{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 10;
+    top: 0;
+    left: 0;
+	display: none;
 }
 
 @-webkit-keyframes pulse-border {
@@ -270,6 +308,9 @@ body{
 	font-size: 20px;
 	color: red;
 }
+
+
+
 
 
 

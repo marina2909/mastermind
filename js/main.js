@@ -1,22 +1,14 @@
 $(document).ready(function(){
 	var options = Options();
-	var playGround;
+	var playGround = PlayGround();
 	
 	reCreate();
-	options.setOnSelect(function(){
-		reCreate();
-	});
-	options.setOnReset(function(){
-		reCreate();
-	});
-	options.setOnGiveUp(function(){
-		playGround.giveUp();
-	});
 	
+	options.setOnStart(reCreate);
+	options.setOnGiveUp(playGround.giveUp);
 	
 	function reCreate(){
-		if (playGround) playGround.clear();
-		playGround = new PlayGround(options.colorNumber, options.placeNumber);
+		playGround.createNewGame(options.colorNumber, options.placeNumber);
 		playGround.setOnAgain(reCreate);
 	}
 

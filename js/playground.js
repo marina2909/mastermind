@@ -1,112 +1,123 @@
-function PlayGround(numberColors, numberPlaces){
-	var playground = $(".main-playground");
+function PlayGround(){
+	var numberColors;
+	var numberPlaces;
+	var board = $('.main-playground');
 	var numberOfTries = 10;
 	var guessPattern = [];
-	var dialog = $(".dialog");
-	var onAgain;
+	var dialog = $('.dialog');;
+	var onAgain = function(){};
 	var rows;
+
+	$('.main').click(function(e){
+		if ($(e.target).closest(".check-button.active").length > 0) return;
+		$('.message').empty();
+	});
 	
-	createRows();
-	generateGuessPattern();
+	function createNewGame(numColors, numPlaces){
+		numberColors = numColors;
+		numberPlaces = numPlaces;
+		board.empty();
+		generateGuessPattern(numberColors, numberPlaces);
+		createRows(numberColors, numberPlaces);
+	}
 	
-	$(".code-peg").click(function(e){
+	function generateGuessPattern(numberColors, numberPlaces){
+		guessPattern = [];
+		for(var i=0; i<numberPlaces; i++){
+			var randomColor = Math.floor(Math.random() * numberColors);
+			guessPattern.push(randomColor);
+		}
+	}
+	
+	function createRows(numberColors, numberPlaces){
+		createGuessRow(numberPlaces);
+		for(var i=numberOfTries; i>0; i--){
+			var row = $('<div class="row"></div>').data('row', i);
+			
+			row.append('<div class="row-number">' + i + '</div>');
+			
+			row.append(createCodePegs(numberPlaces));
+			row.append(createKeyPegs(numberPlaces));
+			
+			var checkButton = $('<button class="check-button">Check</button>');
+			checkButton.click(onCheckButtonClick);
+			row.append(checkButton);
+			
+			board.append(row);
+		}
+		board.find('.check-button:last').addClass('active'); // show check button
+		board.find('.code-peg-group:last').addClass('active'); // set border around code pegs
+		rows = $('.row');
+	}
+
+	
+	function onCodePegClick(){
 		
-		$(".code-peg-group.selected").removeClass("blink");
-		$(".message").empty();
+		$('.code-peg-group.active').removeClass('blink');
+		$('.message').empty();
 		var peg = $(this);
 		
-		if (peg.parent().hasClass("selected")){
+		if (peg.parent().hasClass('active')){
 		
 			// fetch current color
-			var currentColor = peg.data("color");
-			peg.removeClass("color"+currentColor);
+			var currentColor = peg.data('color');
+			peg.removeClass('color' + currentColor);
 			
 			//  set next color
-			var newColor = (currentColor == (numberColors-1)) ? 0 : ++currentColor;
-			peg.addClass("color"+newColor).data("color", newColor);
-			
-			previousTile = peg;
+			var newColor = (currentColor + 1) % numberColors;
+			peg.addClass('color' + newColor).data('color', newColor);
 			
 		}
-	});
+	};
 	
-	$(".check-button").click(function(e){
-		
-		var parent = $(this).parent();
-		var codePegs = parent.find(".code-peg-group").find(".code-peg");
-		
-		if (!isCurrentPopulated(codePegs)){
-			$(".code-peg-group.selected").addClass("blink");
-			$(".message").html("Insert all colors before checking and going to the next line");
-			return;
-		}
-		
-		if (parent.data("row") == numberOfTries){
-			showDialog("You lost!");
-			return;
-		}
-		
-		var keyPegs = parent.find(".key-peg-group").find(".key-peg"); 	
-		
-		// set black and white key Pegs
-		var circlesCount = calculateBlackAndWhite(keyPegs, codePegs);
-		setKeyPegs(keyPegs, codePegs, circlesCount.blackCount, circlesCount.whiteCount);
-		
-		if (circlesCount.blackCount == numberPlaces){
-			showDialog("You won!");
-			return;
-		}
-		
-		// remove from current row
-		parent.find(".check-button").removeClass("selected");
-		parent.find(".code-peg-group").removeClass("selected");
-		
-		// set next row
-		var nextParent = $(rows[rows.length - parent.data("row") - 1]); 
-		nextParent.find(".check-button").addClass('selected');
-		nextParent.find(".code-peg-group").addClass('selected');
-		
-	});
 	
 	function showDialog(msg){
+		$('.dialogCover').show();
 		dialog.empty().append(msg).append($('<button/>', { 
 			html: 'Play Again',
 			click: function(){
 				onAgain();
 				dialog.hide();
+				$('.dialogCover').hide();
 			}
 		}));
 		dialog.show();
 	}
 	
 	function giveUp(){
-		var guessPegs = $(".guess").find(".code-peg");
-		for (var i=0; i<numberPlaces; i++){
-			$(guessPegs[i]).addClass("color"+guessPattern[i]);
-		}	
+		
+		showSolution();
 		
 		// make last peg unclicable
-		$(".code-peg-group").removeClass("selected");
+		$('.code-peg-group.active').removeClass('active');
+		$('.check-button.active').removeClass('active');
 	}
 	
-	function isCurrentPopulated(codePegs){
+	function showSolution(){
+		var guessPegs = $('.guess .code-peg');
+		// show solution
 		for (var i=0; i<numberPlaces; i++){
-			if($(codePegs[i]).data("color") == -1)
-				return false;
+			$(guessPegs[i]).addClass('color'+guessPattern[i]);
+		}	
+	}
+	
+	function isRowPopulated(codePegs){
+		for (var i=0; i<codePegs.length; i++){
+			if($(codePegs[i]).data('color') == -1) return false;
 		}
 		return true;
 	}
 	
 	
-	function calculateBlackAndWhite(keyPegs, codePegs){
+	function calculateBlackAndWhite(keyPegs, codePegs, numberPlaces){
 		
 		// count black
 		var blackCount = 0;
-		for (var i=0; i<numberPlaces; i++){
-			if ($(codePegs[i]).data("color") == guessPattern[i]){
+		codePegs.each(function(i){
+			if ($(this).data('color') == guessPattern[i]){
 				blackCount++;
 			}
-		}
+		});
 		
 		// count white
 		var blackWhite = 0;
@@ -116,10 +127,12 @@ function PlayGround(numberColors, numberPlaces){
 			curr[i] = 0;
 			guess[i] = 0;
 		}
-		for(var i=0; i<numberPlaces; i++){
-			curr[$(codePegs[i]).data("color")]++;
+		
+		codePegs.each(function(i){
+			curr[$(this).data('color')]++;
 			guess[guessPattern[i]]++;
-		}
+		});
+		
 		for (var i=0; i<numberColors; i++){
 			blackWhite += Math.min(curr[i], guess[i]);
 		}
@@ -133,108 +146,84 @@ function PlayGround(numberColors, numberPlaces){
 	
 	function setKeyPegs(keyPegs, codePegs, blackCount, whiteCount){
 		
-		// set black
-		for (var i=0; i<blackCount; i++){
-			$(keyPegs[i]).addClass("black");
-		}	
+		keyPegs.filter(function(i){return i<blackCount}).addClass('black');
+		keyPegs.filter(function(i){return (i>=blackCount && i<(blackCount+whiteCount))}).addClass('white');
 		
-		// set white
-		for (var i=0; i<whiteCount; i++){
-			$(keyPegs[i + blackCount]).addClass("white");
-		}
-		
-	}
-	
-	function createRows(){
-		createFirstRow();
-		var row;
-		for(var i=numberOfTries; i>0; i--){
-			row = $('<div/>', {
-				'class': 'row'
-			}).data('row', i);
-			row.append(createRowNumber(i));
-			row.append(createCodePegs());
-			row.append(createKeyPegs());
-			row.append(createCheckBtn());
-			playground.append(row);
-		}
-		row.find(".check-button").addClass("selected"); // show check button
-		row.find(".code-peg-group").addClass("selected"); // set border arounf code pegs
-		rows = $(".row");
 	}
 
-	function createFirstRow(){
-		var row = $('<div/>', {
-			'class': 'guess'
-		});
+	function createGuessRow(numberPlaces){
+		var row = $('<div class="guess"></div>');
 		for (var j=0; j<numberPlaces; j++){
-			var tile = $('<div/>', {
-				'class': 'code-peg',
-				html: '?'
-			});
-			row.append(tile);
+			row.append('<div class="code-peg">?</div>');
 		}
-		playground.append(row);
+		board.append(row);
 	}
 	
-	function createRowNumber(i){
-		var rowNumber = $('<div/>', {
-			'class': 'row-number',
-			html: i
+	function createCodePegs(numberPlaces){
+		var codePegs = $('<div class="code-peg-group"></div>');
+		codePegs.on('animationend webkitAnimationEnd', function(){
+			$('.code-peg-group.blink').removeClass('blink');
 		});
-		return rowNumber;
-	}
-	
-	function createCodePegs(){
-		var codePegs = $('<div/>', {
-				'class': 'code-peg-group'
-			});
 		for(var j=0; j<numberPlaces; j++){
 			var peg = $('<div/>', {
-				'class': 'code-peg'
+				'class': 'code-peg',
+				click: onCodePegClick
 			}).data('color', -1);
 			codePegs.append(peg);
 		}
 		return codePegs;
 	}
 	
-	function createKeyPegs(){
-		var keyPegs = $('<span/>', {
-			'class': 'key-peg-group'
-		});
+	function createKeyPegs(numberPlaces){
+		var keyPegs = $('<div class="key-peg-group"></div>');
 		for(var j=0; j<numberPlaces; j++){
-			var peg = $('<div/>', {
-				'class': 'key-peg'
-			});
-			keyPegs.append(peg);
+			keyPegs.append('<div class="key-peg"></div>');
 		}
 		return keyPegs;
 	}
 	
-	function createCheckBtn(){
-		var btn = $('<button/>', {
-			'class': 'check-button',
-			html: 'Check'
-		});
-		return btn;
-	}
-	
-	function generateGuessPattern(){
-		guessPattern = [];
-		for(var i=0; i<numberPlaces; i++){
-			var randomColor = Math.floor(Math.random() * numberColors);
-			guessPattern.push(randomColor);
+	function onCheckButtonClick(){
+		
+		var parent = $(this).parent();
+		var codePegs = parent.find('.code-peg-group .code-peg');
+		
+		if (!isRowPopulated(codePegs)){
+			$('.code-peg-group.active').addClass('blink');
+			$('.message').html('Insert all colors before checking and going to the next line');
+		} else if (parent.data('row') == numberOfTries){
+				showDialog('You lost!');
+		} else {
+			
+			var keyPegs = parent.find('.key-peg-group .key-peg'); 	
+			
+			// set black and white key Pegs
+			var keyPegsCount = calculateBlackAndWhite(keyPegs, codePegs, numberPlaces);
+			setKeyPegs(keyPegs, codePegs, keyPegsCount.blackCount, keyPegsCount.whiteCount);
+			
+			if (keyPegsCount.blackCount == numberPlaces){
+				showDialog('You won!');
+				showSolution();	
+			} else {
+			
+				// remove from current row
+				parent.find('.check-button').removeClass('active');
+				parent.find('.code-peg-group').removeClass('active');
+				
+				// set next row
+				var nextParent = $(rows[rows.length - parent.data('row') - 1]); 
+				nextParent.find('.check-button').addClass('active');
+				nextParent.find('.code-peg-group').addClass('active');
+			}
 		}
-	}
+	};
+
 	
 	return {
-		clear: function(){
-			playground.empty();
-		},
 		giveUp: giveUp,
 		setOnAgain: function(handler){
 			onAgain = handler;
-		}
+		},
+		createNewGame: createNewGame
 	}
 
 }
