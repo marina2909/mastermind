@@ -39,7 +39,7 @@ body{
 .options{
 	background: linear-gradient(to bottom, #F4FAFA, #CDD7D7 100%);
 	width: 218px;
-	height: 464px;
+	height: 475px;
 	padding-top: 30px;
 	border-radius: 6px;
 	display: inline-block;
@@ -55,7 +55,6 @@ body{
 	font-weight: bold;
 	color: black;
 	font-size: 20px;
-	box-shadow: rgb(0, 0, 0) 0px 0px 9px;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
@@ -71,7 +70,7 @@ body{
 	padding-right: 22px;
 	padding-left: 27px;
 	padding-top: 30px;
-	height: 464px;
+	height: 475px;
 	background: linear-gradient(to bottom, #F4FAFA, #CDD7D7 100%);
 	border-radius: 6px;
 }
@@ -113,10 +112,9 @@ body{
 	display: inline-block;
 	width: 25px;
 	height: 25px;
-	border: solid #660066 1px;
 	border-radius: 22px;
-	margin: 2px;
-	background: #D75252;
+	margin: 5px;
+	background: radial-gradient(circle 24px at 24px 31px, #FF8282, #000);
 }
 
 .guess{
@@ -128,7 +126,7 @@ body{
 .guess .code-peg{
 	text-align: center;
 	font-size: 20px;
-	color: black;
+	color: rgb(215, 155, 155);
 }
 
 
@@ -143,7 +141,6 @@ body{
 	display: inline-block;
 	width: 10px;
 	height: 10px;
-	border: solid #660066 1px;
 	background-color: #BA6363;
 	border-radius: 8px;
 	margin: 2px;
@@ -167,7 +164,6 @@ body{
 	-moz-border-radius: 12px;
 	border-radius: 6px;
 	vertical-align: middle;
-	box-shadow: rgb(0, 0, 0) 0px 0px 9px;
 }
 .check-button:hover {
 	background-image: linear-gradient(to bottom, #BACF8E, #92AD5C 100%);
@@ -184,44 +180,44 @@ body{
 
 .color0{
 	background: radial-gradient(circle 23px at 12px 5px, #FF0000, #000);
-	width: 27px;
-	height: 27px;
-	margin: 1px;
+	width: 31px;
+	height: 31px;
+	margin: 2px;
 }
 
 .color1{
 	background: radial-gradient(circle 23px at 12px 5px, #00FF00, #000);
-	width: 27px;
-	height: 27px;
-	margin: 1px;
+	width: 31px;
+	height: 31px;
+	margin: 2px;
 }
 
 .color2{
 	background: radial-gradient(circle 23px at 12px 5px, #0064FF, #000);
-	width: 27px;
-	height: 27px;
-	margin: 1px;
+	width: 31px;
+	height: 31px;
+	margin: 2px;
 }
 
 .color3{
 	background: radial-gradient(circle 23px at 12px 5px, #FFFF00, #000);
-	width: 27px;
-	height: 27px;
-	margin: 1px;
+	width: 31px;
+	height: 31px;
+	margin: 2px;
 }
 
 .color4{
 	background: radial-gradient(circle 23px at 12px 5px, #FF00FF, #000);
-	width: 27px;
-	height: 27px;
-	margin: 1px;
+	width: 31px;
+	height: 31px;
+	margin: 2px;
 }
 
 .color5{
 	background: radial-gradient(circle 23px at 12px 5px, #1AEEDD, #000);
-	width: 27px;
-	height: 27px;
-	margin: 1px;
+	width: 31px;
+	height: 31px;
+	margin: 2px;
 }
 
 .black{
@@ -235,7 +231,7 @@ body{
 	width: 12px;
 	height: 12px;
 	margin: 1px;
-	background-color:white;
+	background: radial-gradient(circle 6px at 5px 3px, #E7F0EF, rgb(182, 172, 172));
 }
 
 .dialog{
