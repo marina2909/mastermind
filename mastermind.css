@@ -95,7 +95,7 @@ body{
 	line-height: 27px;
 	vertical-align: top;
 	margin-right: 6px;
-	margin-top: 3px;
+	margin-top: 7px;
 }
 
 .code-peg-group{
@@ -114,7 +114,7 @@ body{
 	height: 25px;
 	border-radius: 22px;
 	margin: 5px;
-	background: radial-gradient(circle 24px at 24px 31px, #FF8282, #000);
+	background: radial-gradient(circle 16px at 24px 24px, #FF8282,#371C1C);
 }
 
 .guess{
@@ -134,7 +134,7 @@ body{
 	vertical-align: middle;
 	display: inline-block;
 	height: 27px;
-	margin-bottom: 6px;
+	margin-bottom: 10px;
 }
 
 .key-peg{
@@ -151,7 +151,7 @@ body{
 	width: 55px;
 	height: 25px;
 	position: relative;
-	bottom: 7px;
+	bottom: 11px;
 	font-size: 13px;
 	font-weight: bold;
 	color: black;
@@ -179,42 +179,42 @@ body{
 }
 
 .color0{
-	background: radial-gradient(circle 23px at 12px 5px, #FF0000, #000);
+	background: radial-gradient(circle 23px at 10px 10px, #FF0000, #000);
 	width: 31px;
 	height: 31px;
 	margin: 2px;
 }
 
 .color1{
-	background: radial-gradient(circle 23px at 12px 5px, #00FF00, #000);
+	background: radial-gradient(circle 23px at 10px 10px, #00FF00, #000);
 	width: 31px;
 	height: 31px;
 	margin: 2px;
 }
 
 .color2{
-	background: radial-gradient(circle 23px at 12px 5px, #0064FF, #000);
+	background: radial-gradient(circle 23px at 10px 10px, #0064FF, #000);
 	width: 31px;
 	height: 31px;
 	margin: 2px;
 }
 
 .color3{
-	background: radial-gradient(circle 23px at 12px 5px, #FFFF00, #000);
+	background: radial-gradient(circle 23px at 10px 10px, #FFFF00, #000);
 	width: 31px;
 	height: 31px;
 	margin: 2px;
 }
 
 .color4{
-	background: radial-gradient(circle 23px at 12px 5px, #FF00FF, #000);
+	background: radial-gradient(circle 23px at 10px 10px, #FF00FF, #000);
 	width: 31px;
 	height: 31px;
 	margin: 2px;
 }
 
 .color5{
-	background: radial-gradient(circle 23px at 12px 5px, #1AEEDD, #000);
+	background: radial-gradient(circle 23px at 10px 10px, #1AEEDD, #000);
 	width: 31px;
 	height: 31px;
 	margin: 2px;
