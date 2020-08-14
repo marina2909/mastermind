@@ -1,7 +1,7 @@
 Mastermind
 =========================
 
-This is a version of popular Mastermind game. You can try this game at [Matermind](http://www.marinasovic.com/mastermind/).
+This is a version of popular Mastermind game.
 
 
 Getting started
